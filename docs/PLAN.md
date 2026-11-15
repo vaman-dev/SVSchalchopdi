@@ -39,7 +39,7 @@ and explains ReLU, Sigmoid, Tanh, and Softmax.
 - [x] Review correctness and requirement compliance
 - [x] Fix confirmed issues
 - [x] Update `docs/PROGRESS.md`
-- [ ] Commit and push the completed experiment
+- [x] Commit and push the completed experiment
 - [ ] Run directly in Google Colab
 
 ## Rules

@@ -5,8 +5,8 @@ Experiment 03 - Performance Analysis of Activation Functions
 
 ## Current Status
 Standalone implementation, local execution, numerical edge-case testing,
-plotting-path validation, and code review are complete. Commit/push and direct
-Google Colab execution remain pending.
+plotting-path validation, code review, commit, and GitHub push are complete.
+Direct Google Colab execution remains pending.
 
 ## Completed Work
 - Reviewed the supplied aim, objectives, theory, comparative analysis,
@@ -102,8 +102,8 @@ No local blocker remains. The Matplotlib warnings only stated that the
 intentionally non-interactive `Agg` backend cannot open display windows.
 
 ## Next Action
-Commit and push the verified Experiment 03 changes to `origin/main`. Then run
-the script in one Google Colab cell to confirm interactive rendering.
+Run `experiment_03_activation_functions.py` in one Google Colab cell to confirm
+interactive rendering.
 
 ## Handoff Rules
 Before context compaction, replace this status with actual:
