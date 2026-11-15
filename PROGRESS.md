@@ -17,6 +17,10 @@ Direct execution in Google Colab has not been performed.
 - Implemented the standalone `experiment_02_ann.py` program.
 - Installed the required libraries into the retained `env/` environment.
 - Completed a five-epoch CPU training run and independent read-only review.
+- Added `README.md` with virtual-environment setup, complete dependency
+  installation, local execution, and Google Colab instructions.
+- Removed the existing `env/` contents from Git tracking while preserving the
+  local virtual environment; `.gitignore` continues to exclude it.
 
 ## Files Implemented
 - `experiment_02_ann.py`
@@ -27,6 +31,7 @@ Direct execution in Google Colab has not been performed.
 - `EXPERIMENT_SPEC.md`
 - `.gitignore`
 - `requirements.txt`
+- `README.md`
 - `.codex/agents/coder.toml`
 - `.codex/agents/reviewer.toml`
 - `.agents/skills/lab-implementation/SKILL.md`
