@@ -1,74 +1,75 @@
 # ARCHITECTURE.md
 
 ## Experiment
-Experiment 04 - DNN Image Classification Using MNIST
+Experiment 05 - CNN Feature Extraction and Visualization
 
 ## Approach
-A standalone TensorFlow/Keras program trains a fully connected deep neural
-network with two hidden layers. It keeps MNIST test images isolated until final
-evaluation and then predicts one selected test digit.
+A standalone TensorFlow/Keras program trains a compact CNN on MNIST. A second
+Keras model reuses the trained network to return intermediate activations for
+one selected test image. Plotting helpers display learned kernels and activation
+channels without saving or loading local files.
 
 ## Data flow
 ```text
-MNIST dataset
+MNIST images (28 x 28)
     |
     v
-Normalize pixels to [0, 1]
+Normalize and add channel dimension (28 x 28 x 1)
     |
     v
 Seeded 54,000 training / 6,000 validation split
     |
     v
-Input (28 x 28)
+Conv2D: 8 filters, 3 x 3, stride 1, same padding -> 28 x 28 x 8
     |
     v
-Flatten (784 features)
+MaxPool2D: 2 x 2 -> 14 x 14 x 8
     |
     v
-Dense (128, ReLU)
+Conv2D: 16 filters, 3 x 3, stride 2, valid padding -> 6 x 6 x 16
     |
     v
-Dense (64, ReLU)
+Flatten -> Dense(64, ReLU) -> Dense(10, Softmax)
     |
     v
-Dense (10, Softmax)
+Final test evaluation and selected-image prediction
     |
-    v
-Adam training with sparse categorical cross-entropy
-    |
-    v
-Final evaluation on 10,000 untouched test images
-    |
-    v
-Selected-image prediction and visualizations
+    +--> learned filter grids
+    `--> first-convolution, pooled, and deeper feature-map grids
 ```
+
+## Dimension interpretation
+- Same padding with stride 1 preserves the first convolution's 28 x 28 size.
+- 2 x 2 max pooling halves 28 x 28 to 14 x 14.
+- A 3 x 3 valid convolution with stride 2 reduces 14 x 14 to 6 x 6.
+- Each output channel corresponds to one learned filter and one feature map.
 
 ## Model configuration
 - Framework: TensorFlow/Keras
 - Optimizer: Adam
 - Loss: sparse categorical cross-entropy
 - Metric: accuracy
-- Initial epochs: 5
+- Epochs: 5
 - Batch size: 128
 - Random seed: 42
 
 ## Program organization
-The single `experiment_04_dnn.py` file will contain small functions for data
-preparation, model construction, training-history visualization, selected-digit
-visualization, and the main execution flow. It will have no local imports or
-file dependencies.
+`experiment_05_cnn_features.py` contains small functions for data preparation,
+model construction, training-history plotting, filter visualization, feature-map
+extraction/visualization, and the main execution flow. It has no local imports
+or data-file dependencies.
 
 ## Verification strategy
-- Parse and compile the Python source.
-- Use lightweight assertions for dataset shapes, split isolation, model shapes,
-  and Softmax probability sum.
-- Run the full five-epoch program using the retained virtual environment.
-- Use a non-interactive Matplotlib backend for automated local execution.
-- Request independent read-only reviews for algorithmic and ML correctness.
+- Parse and compile the source.
+- Import the module and verify model/layer shapes.
+- Run lightweight forward-pass checks for probabilities and activation shapes.
+- Run the complete five-epoch experiment in the existing virtual environment
+  with a non-interactive Matplotlib backend.
+- Inspect the implementation for leakage and visualization indexing errors.
 
 ## Constraints
-- Use a fully connected DNN, not a CNN or pretrained model.
-- Do not train on or tune against test data.
-- Preserve `experiment_02_ann.py`.
-- Report only measured results.
-- Keep the file suitable for a single Google Colab cell.
+- Preserve all earlier experiment scripts.
+- Keep MNIST test data isolated until final evaluation.
+- Use a CNN, not a fully connected-only network or pretrained model.
+- Report only observed metrics.
+- Keep the program suitable for a single Google Colab cell.

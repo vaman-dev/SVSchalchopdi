@@ -1,127 +1,106 @@
 # PROGRESS.md
 
 ## Current Experiment
-Experiment 04 - DNN Image Classification Using MNIST
+Experiment 05 - CNN Feature Extraction and Visualization
 
 ## Current Status
-Standalone implementation, local runtime validation, and two independent
-read-only reviews are complete. Direct Google Colab execution remains pending.
+Standalone implementation, local five-epoch execution, visualization-path
+validation, and code review are complete. Direct Google Colab execution remains
+pending.
 
 ## Completed Work
-- Reviewed the supplied Experiment 04 requirements and the previous Git diff.
-- Replaced the active experiment specification, plan, and architecture with
-  Experiment 04 content.
-- Implemented `experiment_04_dnn.py` as a standalone TensorFlow/Keras program.
-- Used a seeded 54,000/6,000 training-validation split derived only from the
-  MNIST training data.
-- Built the required Flatten, Dense(128), Dense(64), and Dense(10) DNN.
-- Completed five epochs of CPU training and final test evaluation.
-- Verified one selected-image prediction and the visualization code path.
-- Completed independent code and validation reviews; neither found a confirmed
-  code defect.
-- Preserved `experiment_02_ann.py` unchanged from `HEAD`.
-- Reorganized the workspace so root-level Markdown lives in `docs/`, the
-  dependency manifest lives in `config/`, and visible root files are Python
-  experiment programs.
+- Reviewed the supplied Experiment 05 aim, theory, procedure, observations, and
+  expected result.
+- Created `experiment_05_cnn_features.py` without changing Experiments 02 or 04.
+- Added a seeded, leakage-free 54,000/6,000 training-validation split and
+  expanded MNIST images to `(28, 28, 1)`.
+- Built a CNN with 8-filter and 16-filter convolutional layers, max pooling,
+  ReLU activations, and a 10-class Softmax classifier.
+- Used same padding, valid padding, pooling, and convolution stride settings
+  whose effects can be compared through their output dimensions.
+- Trained for five epochs and evaluated on the untouched MNIST test set.
+- Extracted first-convolution, pooled, and deeper-convolution activations.
+- Added visualizations for training history, both layers' learned filters, the
+  selected test image, and all intermediate feature-map channels.
+- Updated the active specification, plan, architecture, and README.
 
 ## Files Implemented
-- `experiment_04_dnn.py` (new standalone program)
-- `docs/EXPERIMENT_SPEC.md` (active Experiment 04 requirements)
-- `docs/PLAN.md` (Experiment 04 milestones and status)
-- `docs/ARCHITECTURE.md` (Experiment 04 design)
-- `docs/PROGRESS.md` (actual execution record)
-- `docs/README.md` (Experiment 04 setup and run information)
-- `docs/AGENTS.md` (reusable workspace instructions)
-- `config/requirements.txt` (Python dependency manifest)
+- `experiment_05_cnn_features.py` (new standalone program)
+- `docs/EXPERIMENT_SPEC.md` (Experiment 05 requirements)
+- `docs/PLAN.md` (completed milestones and pending Colab check)
+- `docs/ARCHITECTURE.md` (CNN design and dimensions)
+- `docs/PROGRESS.md` (verified execution record)
+- `docs/README.md` (Experiment 05 setup and run instructions)
 
 ## Tests Performed
-- Inspected `git diff`, `git status`, and commit `34eb569` before starting.
-  - The working tree initially contained only the interrupted deletion of the
-    four replaceable experiment documents.
-  - `experiment_02_ann.py` was not modified.
-- `env\Scripts\python.exe -m py_compile experiment_04_dnn.py`
+- `env\Scripts\python.exe -m py_compile experiment_05_cnn_features.py`
   - Passed with exit code 0.
-- Imported the module and called `build_model()` using the retained environment.
-  - Input shape: `(None, 28, 28)`.
-  - Output shape: `(None, 10)`.
-  - Layers: Flatten, Dense, Dense, Dense.
-  - Optimizer: Adam.
-  - Loss: sparse categorical cross-entropy.
-- `$env:KERAS_HOME='<workspace>\env\.keras'; $env:MPLBACKEND='Agg';`
-  `env\Scripts\python.exe experiment_04_dnn.py`
-  - Downloaded MNIST into the ignored local environment cache.
-  - Completed five epochs and exited with code 0.
-  - Dataset shape, split-disjointness, normalization, model-shape, prediction-
-    shape, and Softmax-sum assertions passed.
-- Independent reviewer checks:
-  - Source parsing and imports passed.
-  - Synthetic `(2, 28, 28)` forward pass returned `(2, 10)` probabilities;
-    rows were finite, nonnegative, and summed to 1.0.
-  - Synthetic `train_on_batch` with integer labels passed.
-  - Headless plotting check passed with the expected non-interactive warning.
-  - `git diff --check` found no whitespace errors.
-  - Both reviewers confirmed no diff for `experiment_02_ann.py`.
-- Workspace layout validation:
-  - Confirmed zero root-level Markdown files.
-  - Confirmed the only visible root-level working files are
-    `experiment_02_ann.py` and `experiment_04_dnn.py`; `.gitignore` remains as
-    required repository metadata.
-  - AST syntax checks passed for both experiment scripts without generating a
-    new root `__pycache__/`.
-  - `env\Scripts\python.exe -m pip check` reported no broken requirements.
-  - `pip install --dry-run --no-index -r config\requirements.txt` confirmed all
-    declared packages are already satisfied in `env/`.
-  - Internal agent, skill, dependency, and document references were updated to
-    their new paths.
+- Imported the module and called `build_model()` and
+  `build_feature_extractor()` with two synthetic images.
+  - Class probabilities had shape `(2, 10)` and each row summed to 1.
+  - Activation shapes were `(2, 28, 28, 8)`, `(2, 14, 14, 8)`, and
+    `(2, 6, 6, 16)`.
+- Called both learned-filter plots and all three feature-map plots using the
+  non-interactive Matplotlib `Agg` backend.
+  - Every visualization code path completed; expected non-interactive display
+    warnings were observed.
+- Ran the complete program with the retained environment, local MNIST cache,
+  and `MPLBACKEND=Agg`.
+  - All split, normalization, model-shape, probability, and activation-shape
+    assertions passed.
+  - Five training epochs, final test evaluation, prediction, activation
+    extraction, and all plots completed with exit code 0.
+- Reviewed data isolation, layer settings, output dimensions, filter indexing,
+  feature-map indexing, and Colab portability.
+  - One Keras input-structure warning found during lightweight checking was
+    corrected by using the model's single input tensor.
+  - No confirmed implementation bug remains.
 
 ## Results
-- Environment: Python 3.10.11, TensorFlow 2.21.0, NumPy 2.2.6,
-  Matplotlib 3.10.9, CPU execution on Windows.
-- Final training accuracy: 0.9810
-- Final training loss: 0.0636
-- Final validation accuracy: 0.9658
-- Final validation loss: 0.1129
-- Test accuracy: 0.9682
-- Test loss: 0.1029
+- Environment: Python 3.10.11, TensorFlow 2.21.0, CPU execution on Windows.
+- Final training accuracy: 0.9819
+- Final training loss: 0.0591
+- Final validation accuracy: 0.9780
+- Final validation loss: 0.0650
+- Test accuracy: 0.9824
+- Test loss: 0.0544
 - Selected image index: 0
 - Predicted digit: 7
 - Actual digit: 7
-- Prediction confidence: 0.9999
+- Prediction confidence: 0.9997
+- First convolution maps: `(1, 28, 28, 8)`
+- Pooled maps: `(1, 14, 14, 8)`
+- Second convolution maps: `(1, 6, 6, 16)`
 
-These measurements are from one seeded run and can vary slightly across
+These values are from one seeded local run and can vary slightly across
 TensorFlow versions, platforms, and hardware.
 
 ## Review Report
 ### Confirmed bugs
-None found by either independent reviewer.
+None remain.
 
 ### Possible risks / limitations
-- Direct execution in Google Colab has not been performed.
-- MNIST requires network access on its first download.
-- Runtime checks use `assert`, which is disabled if Python runs with `-O`.
-- Missing dependencies or download failures raise standard Python exceptions
-  rather than custom beginner-facing error messages.
-- Native Windows TensorFlow 2.21 uses CPU; its GPU warning is informational.
-- Automated visualization used Matplotlib's non-interactive `Agg` backend, so
-  the figure code executed but no GUI window opened during validation.
-- `docs/AGENTS.md` is no longer automatically discovered as a root instruction
-  file; new Codex sessions must be told to read it explicitly.
+- Direct Google Colab execution has not been performed.
+- MNIST needs internet access on its first download.
+- Headless validation executed all plotting code but did not visually inspect
+  an interactive GUI window.
+- Second-layer kernels contain weights for eight input channels; the filter
+  plot displays their channel-wise mean as one compact 2-D view per filter.
+- Native Windows TensorFlow 2.21 used the CPU; its GPU warning is informational.
 
 ## Errors / Blockers
-No local execution blocker and no confirmed implementation bug remain. Google
-Colab execution is the only unverified acceptance item.
+No local blocker remains. Direct Colab execution is the only unverified item.
 
 ## Next Action
-Review and commit the directory reorganization. Then paste
-`experiment_04_dnn.py` into one Google Colab cell and run it. If it completes,
-check the remaining Colab item in `docs/PLAN.md` and record the result here
-before replacing these documents for a new experiment.
+Review the local changes. Then paste `experiment_05_cnn_features.py` into one
+Google Colab cell and run it to confirm interactive plot rendering. Commit and
+push the experiment after approval.
 
 ## Handoff Rules
 Before context compaction, replace this status with actual:
 - Milestones completed
 - Files changed
-- Commands run and their results
+- Commands run and observed results
 - Measured metrics
 - Outstanding work
 - Exact next action

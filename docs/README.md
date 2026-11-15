@@ -5,21 +5,22 @@ artificial intelligence, machine learning, robotics, and automation.
 
 Each experiment is kept in a single Python file at the project root so it can
 be run locally or pasted into Google Colab. The repository currently preserves
-Experiment 02 and uses Experiment 04 as the active experiment.
+Experiments 02 and 04 and uses Experiment 05 as the active experiment.
 
 ## Current experiment
 
-`experiment_04_dnn.py` implements a fully connected deep neural network for
-MNIST image classification. It performs the complete workflow:
+`experiment_05_cnn_features.py` implements CNN feature extraction and
+visualization using MNIST. It performs the complete workflow:
 
 - downloads and loads the MNIST dataset;
 - normalizes image pixels to the range `[0, 1]`;
 - creates separate training and validation partitions;
-- builds a `Flatten -> Dense(128) -> Dense(64) -> Dense(10)` DNN;
+- builds and trains a two-convolution CNN;
 - trains for five epochs;
 - evaluates once on the held-out test set;
-- predicts one test digit; and
-- displays training and validation accuracy/loss graphs.
+- predicts one test digit;
+- extracts intermediate activations; and
+- displays training history, learned filters, and feature maps.
 
 ## Requirements
 
@@ -59,16 +60,18 @@ py -m venv env
 ```powershell
 env\Scripts\python.exe experiment_02_ann.py
 env\Scripts\python.exe experiment_04_dnn.py
+env\Scripts\python.exe experiment_05_cnn_features.py
 ```
 
 The first run may take longer while TensorFlow downloads MNIST. The program
 prints dataset shapes, the model summary, training progress, test loss, test
-accuracy, and a sample prediction. It also opens the training-history plots.
+accuracy, and a sample prediction. Experiment 05 also opens learned-filter and
+intermediate feature-map visualizations.
 
 ## Run in Google Colab
 
 1. Open a new Google Colab notebook.
-2. Paste the contents of `experiment_04_dnn.py` into one code cell.
+2. Paste the contents of `experiment_05_cnn_features.py` into one code cell.
 3. Run the cell.
 
 TensorFlow, NumPy, and Matplotlib are normally available in Colab. If an import
@@ -94,7 +97,8 @@ is missing, run this in a preceding cell:
 |   |-- PROGRESS.md             Verified results, blockers, and next action
 |   `-- README.md               Setup and usage instructions
 |-- experiment_02_ann.py        Standalone MNIST ANN experiment
-`-- experiment_04_dnn.py        Standalone MNIST DNN experiment
+|-- experiment_04_dnn.py        Standalone MNIST DNN experiment
+`-- experiment_05_cnn_features.py  Standalone CNN feature experiment
 ```
 
 For future experiments, preserve completed experiment scripts and replace the
@@ -106,6 +110,7 @@ Codex session to read `docs/AGENTS.md` before starting work.
 
 ## Verified local result
 
-Experiment 04 completed a five-epoch CPU run on Windows with TensorFlow 2.21.0.
-That run produced a test accuracy of `0.9682` and test loss of `0.1029`.
-Results can vary slightly with hardware and library versions.
+Experiment 05 completed a five-epoch CPU run on Windows with TensorFlow 2.21.0.
+That run produced test accuracy `0.9824` and test loss `0.0544`; all filter and
+feature-map plotting paths also executed. Results can vary slightly with
+hardware and library versions.

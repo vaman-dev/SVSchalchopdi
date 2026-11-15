@@ -1,54 +1,54 @@
-# Experiment 04: DNN Image Classification Using MNIST
+# Experiment 05: CNN Feature Extraction and Visualization
 
 ## Aim
-Implement a Deep Neural Network (DNN) with TensorFlow/Keras to classify MNIST
-handwritten digit images.
+Build and train a simple Convolutional Neural Network (CNN) on MNIST, then
+visualize its learned filters and intermediate feature maps to understand how
+image features change across convolutional layers.
 
-## Objectives
-- Understand how multiple fully connected hidden layers form a DNN.
-- Load and preprocess the MNIST dataset.
-- Build and train a TensorFlow/Keras DNN.
-- Evaluate the trained model on unseen test images.
-- Predict the digit shown in a selected test image.
+## Learning objectives
+- Build and train a basic TensorFlow/Keras CNN.
+- Extract intermediate activations from selected layers.
+- Visualize learned convolutional filters and feature maps.
+- Compare features produced by early and deeper convolutional layers.
+- Observe how padding, convolution stride, and pooling affect spatial size.
 
-## Dataset and theory
-MNIST contains 28 x 28 grayscale images of handwritten digits from 0 to 9.
-Pixel values are normalized from [0, 255] to [0, 1]. A `Flatten` layer converts
-each image into 784 features. Dense hidden layers with 128 and 64 neurons use
-ReLU activations to learn nonlinear patterns. A 10-neuron Softmax output layer
-returns one probability per digit class.
+## Dataset
+MNIST contains 60,000 training and 10,000 test grayscale digit images. Each
+image has shape 28 x 28. Images must be normalized to `[0, 1]` and expanded to
+shape `(28, 28, 1)` for convolution.
 
-MNIST provides 60,000 training images and 10,000 test images. A validation
-partition must be derived only from the training data. The supplied test data
-must remain untouched until final evaluation.
-
-## Required model
-- Input shape: `(28, 28)`
-- Flatten layer
-- Dense hidden layer: 128 neurons, ReLU
-- Dense hidden layer: 64 neurons, ReLU
-- Output layer: 10 neurons, Softmax
+## Required CNN
+- Input shape: `(28, 28, 1)`
+- First convolution: 8 filters, 3 x 3, ReLU, stride 1, same padding
+- Max pooling: 2 x 2
+- Second convolution: 16 filters, 3 x 3, ReLU, stride 2, valid padding
+- Flatten and fully connected classification layers
+- Output: 10 Softmax probabilities
 - Optimizer: Adam
 - Loss: sparse categorical cross-entropy
 - Metric: accuracy
 
-## Procedure
-1. Import TensorFlow/Keras, NumPy, and Matplotlib.
-2. Set a random seed for repeatability.
-3. Load MNIST.
-4. Normalize image pixels.
-5. Derive training and validation partitions from the supplied training split.
-6. Build and compile the required DNN.
-7. Train the model while monitoring validation performance.
-8. Evaluate once on the untouched test set.
-9. Predict a selected test image.
-10. Display the selected image and training history.
+## Required procedure
+1. Load and normalize MNIST.
+2. Create training and validation partitions without using test data.
+3. Add a channel dimension to every image.
+4. Build, compile, and train the CNN.
+5. Evaluate it once on the untouched test set.
+6. Predict a selected test image.
+7. Extract outputs from the first convolution, pooling, and second
+   convolution layers.
+8. Visualize first- and second-layer learned filters.
+9. Visualize and compare intermediate feature maps.
+10. Print layer dimensions that demonstrate padding, pooling, and stride.
 
 ## Required deliverable
-- `experiment_04_dnn.py`, runnable locally and by pasting into Google Colab.
-- Printed dataset shapes and model summary.
-- Printed test loss and test accuracy.
-- Printed predicted digit, actual digit, and prediction confidence.
-- Training/validation accuracy and loss graphs plus the selected test image.
+- `experiment_05_cnn_features.py`
+- Printed data shapes, model summary, test metrics, selected prediction, and
+  intermediate activation shapes
+- Training accuracy/loss graphs
+- Learned-filter visualizations
+- Feature-map visualizations from multiple stages
 
-Do not state numerical results until the complete program has executed.
+The program must remain a standalone Python file suitable for local execution
+or one Google Colab cell. Numerical results must not be claimed until the full
+program is executed.
