@@ -1,38 +1,54 @@
-# Experiment 2: Simple Artificial Neural Network (ANN) for Classification
+# Experiment 04: DNN Image Classification Using MNIST
 
 ## Aim
-Implement an ANN for classification using TensorFlow/Keras.
+Implement a Deep Neural Network (DNN) with TensorFlow/Keras to classify MNIST
+handwritten digit images.
 
 ## Objectives
-- Understand input, hidden, and output layers.
-- Build a basic ANN in TensorFlow/Keras.
-- Train using labeled handwritten-digit data.
-- Evaluate performance on a held-out test set.
-- Predict class labels for unseen images.
+- Understand how multiple fully connected hidden layers form a DNN.
+- Load and preprocess the MNIST dataset.
+- Build and train a TensorFlow/Keras DNN.
+- Evaluate the trained model on unseen test images.
+- Predict the digit shown in a selected test image.
 
 ## Dataset and theory
-Use MNIST, consisting of 28 x 28 grayscale handwritten digits 0-9. Scale
-pixels from [0, 255] to [0, 1]. `Flatten` converts each image to 784
-features. Two `Dense` hidden layers with ReLU learn nonlinear patterns. A
-10-unit Softmax output represents class probabilities. Adam optimizes sparse
-categorical cross-entropy.
+MNIST contains 28 x 28 grayscale images of handwritten digits from 0 to 9.
+Pixel values are normalized from [0, 255] to [0, 1]. A `Flatten` layer converts
+each image into 784 features. Dense hidden layers with 128 and 64 neurons use
+ReLU activations to learn nonlinear patterns. A 10-neuron Softmax output layer
+returns one probability per digit class.
+
+MNIST provides 60,000 training images and 10,000 test images. A validation
+partition must be derived only from the training data. The supplied test data
+must remain untouched until final evaluation.
+
+## Required model
+- Input shape: `(28, 28)`
+- Flatten layer
+- Dense hidden layer: 128 neurons, ReLU
+- Dense hidden layer: 64 neurons, ReLU
+- Output layer: 10 neurons, Softmax
+- Optimizer: Adam
+- Loss: sparse categorical cross-entropy
+- Metric: accuracy
 
 ## Procedure
-1. Import libraries.
-2. Load MNIST classification data.
-3. Separate train, validation, and test data without leakage.
-4. Normalize input values.
-5. Define a Keras Sequential ANN.
-6. Add Flatten, two Dense hidden layers, and an output layer.
-7. Compile the model with Adam and an appropriate loss and metric.
-8. Train on training data while monitoring validation data.
-9. Evaluate once on untouched test data.
-10. Predict the class of a test example.
+1. Import TensorFlow/Keras, NumPy, and Matplotlib.
+2. Set a random seed for repeatability.
+3. Load MNIST.
+4. Normalize image pixels.
+5. Derive training and validation partitions from the supplied training split.
+6. Build and compile the required DNN.
+7. Train the model while monitoring validation performance.
+8. Evaluate once on the untouched test set.
+9. Predict a selected test image.
+10. Display the selected image and training history.
 
-## Required deliverables
-- One reproducible standalone Python program compatible with local execution
-  and Google Colab.
-- Training history plots for accuracy and loss.
-- Measured test loss, test accuracy, and one prediction example.
+## Required deliverable
+- `experiment_04_dnn.py`, runnable locally and by pasting into Google Colab.
+- Printed dataset shapes and model summary.
+- Printed test loss and test accuracy.
+- Printed predicted digit, actual digit, and prediction confidence.
+- Training/validation accuracy and loss graphs plus the selected test image.
 
-Do not state a numerical result until the code has run.
+Do not state numerical results until the complete program has executed.

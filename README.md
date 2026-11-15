@@ -4,18 +4,18 @@ This repository contains standalone educational experiments for programming,
 artificial intelligence, machine learning, robotics, and automation.
 
 Each experiment is kept in a single Python file at the project root so it can
-be run locally or pasted into Google Colab. The current program is Experiment
-2, a fully connected neural network that classifies MNIST handwritten digits
-with TensorFlow/Keras.
+be run locally or pasted into Google Colab. The repository currently preserves
+Experiment 02 and uses Experiment 04 as the active experiment.
 
 ## Current experiment
 
-`experiment_02_ann.py` performs the complete workflow:
+`experiment_04_dnn.py` implements a fully connected deep neural network for
+MNIST image classification. It performs the complete workflow:
 
 - downloads and loads the MNIST dataset;
 - normalizes image pixels to the range `[0, 1]`;
 - creates separate training and validation partitions;
-- builds a `Flatten -> Dense(128) -> Dense(64) -> Dense(10)` ANN;
+- builds a `Flatten -> Dense(128) -> Dense(64) -> Dense(10)` DNN;
 - trains for five epochs;
 - evaluates once on the held-out test set;
 - predicts one test digit; and
@@ -58,6 +58,7 @@ py -m venv env
 
 ```powershell
 env\Scripts\python.exe experiment_02_ann.py
+env\Scripts\python.exe experiment_04_dnn.py
 ```
 
 The first run may take longer while TensorFlow downloads MNIST. The program
@@ -67,7 +68,7 @@ accuracy, and a sample prediction. It also opens the training-history plots.
 ## Run in Google Colab
 
 1. Open a new Google Colab notebook.
-2. Paste the contents of `experiment_02_ann.py` into one code cell.
+2. Paste the contents of `experiment_04_dnn.py` into one code cell.
 3. Run the cell.
 
 TensorFlow, NumPy, and Matplotlib are normally available in Colab. If an import
@@ -89,6 +90,7 @@ is missing, run this in a preceding cell:
 |-- ARCHITECTURE.md             Program design and data flow
 |-- PROGRESS.md                 Verified results, blockers, and next action
 |-- experiment_02_ann.py        Standalone MNIST ANN experiment
+|-- experiment_04_dnn.py        Standalone MNIST DNN experiment
 |-- requirements.txt            Python dependencies
 `-- README.md                   Setup and usage instructions
 ```
@@ -98,6 +100,6 @@ experiment-specific specification, plan, architecture, and progress content.
 
 ## Verified local result
 
-The current program completed a five-epoch CPU run on Windows with TensorFlow
-2.21.0. That run produced a test accuracy of `0.9682` and test loss of
-`0.1029`. Results can vary slightly with hardware and library versions.
+Experiment 04 completed a five-epoch CPU run on Windows with TensorFlow 2.21.0.
+That run produced a test accuracy of `0.9682` and test loss of `0.1029`.
+Results can vary slightly with hardware and library versions.

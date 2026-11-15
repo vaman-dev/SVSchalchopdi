@@ -1,67 +1,74 @@
 # ARCHITECTURE.md
 
 ## Experiment
-Experiment 2 — MNIST ANN Classification
+Experiment 04 - DNN Image Classification Using MNIST
 
 ## Approach
-A fully connected artificial neural network
-classifies handwritten digits into 10 categories.
+A standalone TensorFlow/Keras program trains a fully connected deep neural
+network with two hidden layers. It keeps MNIST test images isolated until final
+evaluation and then predicts one selected test digit.
 
-## Data Flow
-MNIST Dataset
+## Data flow
+```text
+MNIST dataset
     |
     v
-Normalize Images (pixel / 255)
+Normalize pixels to [0, 1]
     |
     v
-Train / Validation Split
+Seeded 54,000 training / 6,000 validation split
     |
     v
-Input Layer (28 x 28)
+Input (28 x 28)
     |
     v
 Flatten (784 features)
     |
     v
-Dense Layer (128, ReLU)
+Dense (128, ReLU)
     |
     v
-Dense Layer (64, ReLU)
+Dense (64, ReLU)
     |
     v
-Output Layer (10, Softmax)
+Dense (10, Softmax)
     |
     v
-Model Training (Adam)
+Adam training with sparse categorical cross-entropy
     |
     v
-Final Test Evaluation
+Final evaluation on 10,000 untouched test images
     |
     v
-Prediction + Accuracy/Loss Graphs
+Selected-image prediction and visualizations
+```
 
-## Dataset
-- 60,000 original MNIST training images
-- 54,000 training samples
-- 6,000 validation samples
-- 10,000 held-out test images
-- Labels: integers from 0 to 9
+## Model configuration
+- Framework: TensorFlow/Keras
+- Optimizer: Adam
+- Loss: sparse categorical cross-entropy
+- Metric: accuracy
+- Initial epochs: 5
+- Batch size: 128
+- Random seed: 42
 
-## Model Configuration
-Framework: TensorFlow/Keras
-Loss: Sparse Categorical Crossentropy
-Optimizer: Adam
-Epochs: 5
-Batch size: 128
+## Program organization
+The single `experiment_04_dnn.py` file will contain small functions for data
+preparation, model construction, training-history visualization, selected-digit
+visualization, and the main execution flow. It will have no local imports or
+file dependencies.
 
-## Deliverable
-experiment_02_ann.py
-
-The script must be executable independently
-and compatible with Google Colab.
+## Verification strategy
+- Parse and compile the Python source.
+- Use lightweight assertions for dataset shapes, split isolation, model shapes,
+  and Softmax probability sum.
+- Run the full five-epoch program using the retained virtual environment.
+- Use a non-interactive Matplotlib backend for automated local execution.
+- Request independent read-only reviews for algorithmic and ML correctness.
 
 ## Constraints
-- No CNN or pretrained architecture.
-- Do not train on test data.
-- Report observed accuracy, not guessed values.
-- Avoid unnecessary multi-file dependencies.
+- Use a fully connected DNN, not a CNN or pretrained model.
+- Do not train on or tune against test data.
+- Preserve `experiment_02_ann.py`.
+- Report only measured results.
+- Keep the file suitable for a single Google Colab cell.

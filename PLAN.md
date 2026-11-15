@@ -1,46 +1,47 @@
 # PLAN.md
 
 ## Active Experiment
-Experiment 2 — ANN Classification using TensorFlow/Keras
+Experiment 04 - DNN Image Classification Using MNIST
 
 ## Goal
-Implement a standalone ANN program for recognizing
-handwritten digits using the MNIST dataset.
+Implement and verify a standalone TensorFlow/Keras DNN that classifies MNIST
+handwritten digits and predicts a selected test image.
 
-## Milestone 1 — Requirements
-- [x] Review EXPERIMENT_SPEC.md
-- [x] Identify dataset, model and expected output
-- [x] Confirm required dependencies
+## Milestone 1 - Requirements
+- [x] Review Experiment 04 requirements
+- [x] Identify the dataset, required model, and outputs
+- [x] Confirm the existing dependencies satisfy the experiment
 
-## Milestone 2 — Architecture
-- [x] Design preprocessing pipeline
-- [x] Define ANN layers
-- [x] Define training and evaluation strategy
+## Milestone 2 - Architecture
+- [x] Design normalization and validation splitting
+- [x] Define the 128/64-neuron DNN
+- [x] Define training, final evaluation, prediction, and plots
 
-## Milestone 3 — Implementation
-- [x] Create experiment_02_ann.py
-- [x] Load MNIST dataset
-- [x] Normalize input images
-- [x] Create training and validation partitions
-- [x] Build and compile the ANN
+## Milestone 3 - Implementation
+- [x] Create `experiment_04_dnn.py`
+- [x] Load and normalize MNIST
+- [x] Create leakage-free training and validation partitions
+- [x] Build and compile the DNN
 - [x] Train and evaluate the model
-- [x] Predict a test digit
+- [x] Predict and display a selected test digit
 - [x] Display accuracy and loss graphs
 
-## Milestone 4 — Verification
-- [x] Check Python syntax
-- [x] Verify model output dimensions
-- [x] Verify training/test separation
-- [x] Run the complete program
-- [x] Record measured test accuracy
+## Milestone 4 - Verification
+- [x] Check Python syntax and imports
+- [x] Verify split sizes and test isolation
+- [x] Verify the model input/output shapes
+- [x] Verify output probabilities sum approximately to one
+- [x] Run the complete experiment
+- [x] Record measured metrics
 
-## Milestone 5 — Review
+## Milestone 5 - Independent Review
 - [x] Obtain independent code review
-- [x] Fix identified issues
-- [x] Update PROGRESS.md
-- [ ] Confirm Colab compatibility
+- [x] Separate confirmed defects from possible risks
+- [x] Address confirmed defects (none found)
+- [x] Update `PROGRESS.md`
+- [x] Report local and Colab verification status
+- [ ] Run directly in Google Colab
 
 ## Rules
-Complete milestones sequentially.
-Check boxes only after completing the task.
-Record failures instead of assuming success.
+Complete milestones sequentially. Check boxes only after completing the work.
+Record failures and unverified behavior instead of assuming success.
