@@ -1,0 +1,4 @@
+# Project-local Codex preferences (loaded if repository configuration is trusted).
+[agents]
+enabled = true
+max_concurrent_threads_per_session = 3
