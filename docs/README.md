@@ -5,27 +5,27 @@ artificial intelligence, machine learning, robotics, and automation.
 
 Each experiment is kept in a single Python file at the project root so it can
 be run locally or pasted into Google Colab. The repository currently preserves
-Experiments 02 and 04 and uses Experiment 05 as the active experiment.
+Experiments 02, 04, and 05 and uses Experiment 06 as the active experiment.
 
 ## Current experiment
 
-`experiment_05_cnn_features.py` implements CNN feature extraction and
-visualization using MNIST. It performs the complete workflow:
+`Experiment_06_ethics.py` demonstrates Ethics and Responsible AI. It performs
+the complete workflow:
 
-- downloads and loads the MNIST dataset;
-- normalizes image pixels to the range `[0, 1]`;
-- creates separate training and validation partitions;
-- builds and trains a two-convolution CNN;
-- trains for five epochs;
-- evaluates once on the held-out test set;
-- predicts one test digit;
-- extracts intermediate activations; and
-- displays training history, learned filters, and feature maps.
+- creates an intentionally imbalanced synthetic grouped dataset;
+- calculates and visualizes group representation;
+- excludes the audit group from model features;
+- trains a Logistic Regression model on an isolated training partition;
+- compares held-out accuracy across groups without overclaiming fairness;
+- trains a Decision Tree on the built-in Iris dataset;
+- visualizes model feature importance; and
+- prints AI recruitment and autonomous-system ethical analyses.
 
 ## Requirements
 
 - Python 3.10 or newer (Python 3.11 is recommended)
-- Internet access the first time MNIST is downloaded
+- Internet access while installing packages and the first time MNIST is
+  downloaded for Experiments 02, 04, or 05
 - The packages listed in `config/requirements.txt`
 
 ## Install all required packages
@@ -45,8 +45,9 @@ env\Scripts\python.exe -m pip install -r config\requirements.txt
 ```
 
 The second command is the main installation command. It installs TensorFlow,
-NumPy, Matplotlib, and their required dependencies. Using the environment's
-Python executable ensures packages are not installed into global Python.
+NumPy, Matplotlib, Pandas, Scikit-learn, and their required dependencies. Using
+the environment's Python executable ensures packages are not installed into
+global Python.
 
 If Python 3.11 is unavailable, create the environment with the installed
 Python launcher instead:
@@ -61,24 +62,25 @@ py -m venv env
 env\Scripts\python.exe experiment_02_ann.py
 env\Scripts\python.exe experiment_04_dnn.py
 env\Scripts\python.exe experiment_05_cnn_features.py
+env\Scripts\python.exe Experiment_06_ethics.py
 ```
 
-The first run may take longer while TensorFlow downloads MNIST. The program
-prints dataset shapes, the model summary, training progress, test loss, test
-accuracy, and a sample prediction. Experiment 05 also opens learned-filter and
-intermediate feature-map visualizations.
+The first MNIST run may take longer while TensorFlow downloads its dataset.
+Experiment 06 uses generated data and the Iris dataset bundled with
+Scikit-learn, so it does not download a dataset. It prints representation,
+group-performance, feature-importance, case-study, and autonomous-system
+results and opens three bar charts.
 
 ## Run in Google Colab
 
 1. Open a new Google Colab notebook.
-2. Paste the contents of `experiment_05_cnn_features.py` into one code cell.
+2. Paste the contents of `Experiment_06_ethics.py` into one code cell.
 3. Run the cell.
 
-TensorFlow, NumPy, and Matplotlib are normally available in Colab. If an import
-is missing, run this in a preceding cell:
+If an Experiment 06 import is missing, run this in a preceding cell:
 
 ```python
-%pip install tensorflow numpy matplotlib
+%pip install numpy pandas matplotlib scikit-learn
 ```
 
 ## Project structure
@@ -98,7 +100,8 @@ is missing, run this in a preceding cell:
 |   `-- README.md               Setup and usage instructions
 |-- experiment_02_ann.py        Standalone MNIST ANN experiment
 |-- experiment_04_dnn.py        Standalone MNIST DNN experiment
-`-- experiment_05_cnn_features.py  Standalone CNN feature experiment
+|-- experiment_05_cnn_features.py  Standalone CNN feature experiment
+`-- Experiment_06_ethics.py     Standalone Responsible AI experiment
 ```
 
 For future experiments, preserve completed experiment scripts and replace the
@@ -110,7 +113,10 @@ Codex session to read `docs/AGENTS.md` before starting work.
 
 ## Verified local result
 
-Experiment 05 completed a five-epoch CPU run on Windows with TensorFlow 2.21.0.
-That run produced test accuracy `0.9824` and test loss `0.0544`; all filter and
-feature-map plotting paths also executed. Results can vary slightly with
-hardware and library versions.
+Experiment 06 completed locally on Windows using Pandas 2.3.3 and Scikit-learn
+1.7.2. The synthetic dataset contained 400 Group A and 100 Group B samples.
+Held-out accuracies were `0.8800` and `0.7600`, producing an absolute gap of
+`0.1200`. The Iris Decision Tree accuracy was `0.8947`. These seeded educational
+results can vary if the data generation, split, model, or library versions are
+changed. All three plotting paths executed in headless validation; direct
+Google Colab execution remains unverified.

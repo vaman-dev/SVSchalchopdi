@@ -1,100 +1,111 @@
 # PROGRESS.md
 
 ## Current Experiment
-Experiment 05 - CNN Feature Extraction and Visualization
+Experiment 06 - Ethics and Responsible AI
 
 ## Current Status
-Standalone implementation, local five-epoch execution, visualization-path
+Standalone implementation, dependency setup, local execution, plotting-path
 validation, and code review are complete. Direct Google Colab execution remains
 pending.
 
 ## Completed Work
-- Reviewed the supplied Experiment 05 aim, theory, procedure, observations, and
-  expected result.
-- Created `experiment_05_cnn_features.py` without changing Experiments 02 or 04.
-- Added a seeded, leakage-free 54,000/6,000 training-validation split and
-  expanded MNIST images to `(28, 28, 1)`.
-- Built a CNN with 8-filter and 16-filter convolutional layers, max pooling,
-  ReLU activations, and a 10-class Softmax classifier.
-- Used same padding, valid padding, pooling, and convolution stride settings
-  whose effects can be compared through their output dimensions.
-- Trained for five epochs and evaluated on the untouched MNIST test set.
-- Extracted first-convolution, pooled, and deeper-convolution activations.
-- Added visualizations for training history, both layers' learned filters, the
-  selected test image, and all intermediate feature-map channels.
-- Updated the active specification, plan, architecture, and README.
+- Reviewed the supplied aim, objectives, theory, practical work, and expected
+  output.
+- Created `Experiment_06_ethics.py` without modifying Experiments 02, 04, or 05.
+- Created a seeded 500-row synthetic dataset with 400 Group A and 100 Group B
+  samples and clearly labelled it as an educational example.
+- Calculated group counts and percentages, identified the underrepresented
+  group, and plotted sample counts.
+- Split the synthetic data into isolated training and test partitions using a
+  group-and-label stratification key.
+- Excluded the audit group and target from model inputs, trained a scaled
+  Logistic Regression model, and compared held-out accuracy by group.
+- Loaded the bundled Iris dataset, trained a depth-3 Decision Tree, and plotted
+  normalized impurity-based feature importance.
+- Added an AI recruitment case study covering bias, fairness, privacy, safety,
+  explainability, accountability, and human involvement.
+- Added autonomous-system considerations covering safety, reliability,
+  accountability, privacy, security, and human control.
+- Added Pandas and Scikit-learn to the dependency manifest and updated the
+  README installation, execution, Colab, and project-structure guidance.
 
 ## Files Implemented
-- `experiment_05_cnn_features.py` (new standalone program)
-- `docs/EXPERIMENT_SPEC.md` (Experiment 05 requirements)
-- `docs/PLAN.md` (completed milestones and pending Colab check)
-- `docs/ARCHITECTURE.md` (CNN design and dimensions)
+- `Experiment_06_ethics.py` (new standalone program)
+- `config/requirements.txt` (Pandas and Scikit-learn dependencies)
+- `docs/EXPERIMENT_SPEC.md` (Experiment 06 requirements)
+- `docs/PLAN.md` (completed local milestones and pending Colab check)
+- `docs/ARCHITECTURE.md` (data flow, models, safeguards, and validation design)
 - `docs/PROGRESS.md` (verified execution record)
-- `docs/README.md` (Experiment 05 setup and run instructions)
+- `docs/README.md` (Experiment 06 setup and usage instructions)
 
 ## Tests Performed
-- `env\Scripts\python.exe -m py_compile experiment_05_cnn_features.py`
+- `env\Scripts\python.exe -m pip install -r config\requirements.txt`
+  - Installed Pandas 2.3.3 and Scikit-learn 1.7.2 into the retained `env/`.
+  - Existing TensorFlow, NumPy, and Matplotlib installations were retained.
+- Imported Pandas and Scikit-learn and printed their module locations.
+  - Both resolved inside `env\Lib\site-packages`, not global Python.
+- `env\Scripts\python.exe -m py_compile Experiment_06_ethics.py`
   - Passed with exit code 0.
-- Imported the module and called `build_model()` and
-  `build_feature_extractor()` with two synthetic images.
-  - Class probabilities had shape `(2, 10)` and each row summed to 1.
-  - Activation shapes were `(2, 28, 28, 8)`, `(2, 14, 14, 8)`, and
-    `(2, 6, 6, 16)`.
-- Called both learned-filter plots and all three feature-map plots using the
-  non-interactive Matplotlib `Agg` backend.
-  - Every visualization code path completed; expected non-interactive display
-    warnings were observed.
-- Ran the complete program with the retained environment, local MNIST cache,
-  and `MPLBACKEND=Agg`.
-  - All split, normalization, model-shape, probability, and activation-shape
-    assertions passed.
-  - Five training epochs, final test evaluation, prediction, activation
-    extraction, and all plots completed with exit code 0.
-- Reviewed data isolation, layer settings, output dimensions, filter indexing,
-  feature-map indexing, and Colab portability.
-  - One Keras input-structure warning found during lightweight checking was
-    corrected by using the model's single input tensor.
+- `env\Scripts\python.exe -m pip check`
+  - Reported no broken requirements.
+- `git diff --exit-code -- experiment_02_ann.py experiment_04_dnn.py experiment_05_cnn_features.py`
+  - Passed; all earlier experiment scripts remain unchanged.
+- Ran the complete program with `MPLBACKEND=Agg`.
+  - Representation, split isolation, model-feature exclusion, group metrics,
+    feature importance, and probability/range assertions passed.
+  - All three plot code paths and Parts A through E completed with exit code 0.
+- Reviewed the code against the supplied practical procedure.
   - No confirmed implementation bug remains.
 
 ## Results
-- Environment: Python 3.10.11, TensorFlow 2.21.0, CPU execution on Windows.
-- Final training accuracy: 0.9819
-- Final training loss: 0.0591
-- Final validation accuracy: 0.9780
-- Final validation loss: 0.0650
-- Test accuracy: 0.9824
-- Test loss: 0.0544
-- Selected image index: 0
-- Predicted digit: 7
-- Actual digit: 7
-- Prediction confidence: 0.9997
-- First convolution maps: `(1, 28, 28, 8)`
-- Pooled maps: `(1, 14, 14, 8)`
-- Second convolution maps: `(1, 6, 6, 16)`
+- Environment: Python 3.10.11 on Windows
+- Pandas: 2.3.3
+- Scikit-learn: 1.7.2
+- Synthetic dataset shape: `(500, 5)`
+- Group A: 400 samples, 80.00% representation
+- Group B: 100 samples, 20.00% representation
+- Underrepresented group: Group B
+- Training rows: 375
+- Held-out test rows: 125
+- Group A held-out accuracy: 0.8800 (`n=100`)
+- Group B held-out accuracy: 0.7600 (`n=25`)
+- Absolute group accuracy gap: 0.1200
+- Iris Decision Tree held-out accuracy: 0.8947
+- Iris feature importance:
+  - Petal length: 0.9507
+  - Petal width: 0.0493
+  - Sepal width: 0.0000
+  - Sepal length: 0.0000
 
-These values are from one seeded local run and can vary slightly across
-TensorFlow versions, platforms, and hardware.
+These are seeded educational results, not a conclusion about a real group or
+production system. A different dataset, split, model, or library version can
+change the measurements.
 
 ## Review Report
 ### Confirmed bugs
-None remain.
+None found.
 
-### Possible risks / limitations
+### Interpretation limits / possible risks
+- Representation imbalance and a group accuracy gap are screening signals, not
+  automatic proof of discrimination or fairness.
+- Accuracy alone does not capture false-positive/false-negative tradeoffs,
+  calibration, intersectional effects, or application-specific harm.
+- Group B has only 25 held-out samples, so its accuracy estimate is less stable.
+- The synthetic group labels do not represent real demographic groups.
+- Decision Tree impurity importance explains this fitted model's split usage;
+  it does not prove causal influence.
+- Headless validation executed plot code but did not visually inspect a GUI.
 - Direct Google Colab execution has not been performed.
-- MNIST needs internet access on its first download.
-- Headless validation executed all plotting code but did not visually inspect
-  an interactive GUI window.
-- Second-layer kernels contain weights for eight input channels; the filter
-  plot displays their channel-wise mean as one compact 2-D view per filter.
-- Native Windows TensorFlow 2.21 used the CPU; its GPU warning is informational.
 
 ## Errors / Blockers
 No local blocker remains. Direct Colab execution is the only unverified item.
+The Matplotlib warnings during validation only stated that the intentionally
+non-interactive `Agg` backend cannot open a window.
 
 ## Next Action
-Review the local changes. Then paste `experiment_05_cnn_features.py` into one
-Google Colab cell and run it to confirm interactive plot rendering. Commit and
-push the experiment after approval.
+Review the local Experiment 06 changes. Then paste `Experiment_06_ethics.py`
+into one Google Colab cell and run it to confirm interactive chart rendering.
+Commit and push the experiment after approval.
 
 ## Handoff Rules
 Before context compaction, replace this status with actual:

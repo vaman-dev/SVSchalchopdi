@@ -1,75 +1,94 @@
 # ARCHITECTURE.md
 
 ## Experiment
-Experiment 05 - CNN Feature Extraction and Visualization
+Experiment 06 - Ethics and Responsible AI
 
 ## Approach
-A standalone TensorFlow/Keras program trains a compact CNN on MNIST. A second
-Keras model reuses the trained network to return intermediate activations for
-one selected test image. Plotting helpers display learned kernels and activation
-channels without saving or loading local files.
+A standalone educational script combines two small machine-learning exercises
+with written ethical analysis. A reproducible synthetic dataset demonstrates
+group representation and performance auditing. Scikit-learn's bundled Iris
+dataset demonstrates interpretable feature importance with a Decision Tree.
 
 ## Data flow
 ```text
-MNIST images (28 x 28)
+Seeded synthetic grouped data
+    |
+    +--> group counts and percentages --> representation bar chart
+    |
+    `--> stratified train/test split
+             |
+             v
+       numeric features only (group excluded)
+             |
+             v
+       Logistic Regression
+             |
+             v
+       held-out predictions by group
+             |
+             `--> group accuracy + absolute gap + comparison chart
+
+Scikit-learn Iris dataset
     |
     v
-Normalize and add channel dimension (28 x 28 x 1)
+Stratified train/test split
     |
     v
-Seeded 54,000 training / 6,000 validation split
+Decision Tree classifier
     |
-    v
-Conv2D: 8 filters, 3 x 3, stride 1, same padding -> 28 x 28 x 8
-    |
-    v
-MaxPool2D: 2 x 2 -> 14 x 14 x 8
-    |
-    v
-Conv2D: 16 filters, 3 x 3, stride 2, valid padding -> 6 x 6 x 16
-    |
-    v
-Flatten -> Dense(64, ReLU) -> Dense(10, Softmax)
-    |
-    v
-Final test evaluation and selected-image prediction
-    |
-    +--> learned filter grids
-    `--> first-convolution, pooled, and deeper feature-map grids
+    +--> held-out accuracy
+    `--> normalized feature importances --> bar chart
+
+Printed analysis
+    +--> AI recruitment case study
+    `--> autonomous-system safety and governance checklist
 ```
 
-## Dimension interpretation
-- Same padding with stride 1 preserves the first convolution's 28 x 28 size.
-- 2 x 2 max pooling halves 28 x 28 to 14 x 14.
-- A 3 x 3 valid convolution with stride 2 reduces 14 x 14 to 6 x 6.
-- Each output channel corresponds to one learned filter and one feature map.
+## Synthetic dataset design
+- Two audit groups have intentionally unequal sample counts.
+- Two numerical predictive features and one binary target are generated with a
+  fixed random seed.
+- Different noise levels allow group performance to be compared without using
+  the group identity as a predictor.
+- A composite group-and-label key is used for stratification so each test group
+  retains both target classes.
+
+The synthetic example is an educational demonstration, not evidence about any
+real population or production system.
 
 ## Model configuration
-- Framework: TensorFlow/Keras
-- Optimizer: Adam
-- Loss: sparse categorical cross-entropy
-- Metric: accuracy
-- Epochs: 5
-- Batch size: 128
+### Fairness demonstration
+- Model: Logistic Regression
+- Inputs: two numerical features
+- Audit attribute: group, excluded from model inputs
+- Evaluation: held-out accuracy per group and absolute accuracy gap
+- Random seed: 42
+
+### Explainability demonstration
+- Dataset: Iris
+- Model: Decision Tree, maximum depth 3
+- Explanation: normalized impurity-based feature importance
+- Evaluation: held-out accuracy
 - Random seed: 42
 
 ## Program organization
-`experiment_05_cnn_features.py` contains small functions for data preparation,
-model construction, training-history plotting, filter visualization, feature-map
-extraction/visualization, and the main execution flow. It has no local imports
-or data-file dependencies.
+`Experiment_06_ethics.py` contains small functions for dataset creation,
+representation analysis, fairness evaluation, Iris feature importance,
+visualization, case-study printing, and the main execution flow. It has no
+local data-file or module dependencies.
 
 ## Verification strategy
-- Parse and compile the source.
-- Import the module and verify model/layer shapes.
-- Run lightweight forward-pass checks for probabilities and activation shapes.
-- Run the complete five-epoch experiment in the existing virtual environment
-  with a non-interactive Matplotlib backend.
-- Inspect the implementation for leakage and visualization indexing errors.
+- Compile and import the source using the existing virtual environment.
+- Assert expected columns, group counts, and percentage totals.
+- Assert that the group attribute is not included in model features.
+- Assert train/test row isolation and valid group accuracies.
+- Assert Iris feature importances are nonnegative and sum to one.
+- Execute the complete script with Matplotlib's non-interactive backend.
+- Inspect the implementation against all five practical-work sections.
 
-## Constraints
-- Preserve all earlier experiment scripts.
-- Keep MNIST test data isolated until final evaluation.
-- Use a CNN, not a fully connected-only network or pretrained model.
-- Report only observed metrics.
+## Constraints and interpretation
+- Preserve every earlier experiment script.
+- Avoid sensitive real-person data; use clearly labelled synthetic groups.
+- Do not describe one metric as a complete fairness assessment.
+- Impurity-based feature importance describes model behavior, not causation.
 - Keep the program suitable for a single Google Colab cell.

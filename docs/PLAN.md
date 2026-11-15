@@ -1,46 +1,48 @@
 # PLAN.md
 
 ## Active Experiment
-Experiment 05 - CNN Feature Extraction and Visualization
+Experiment 06 - Ethics and Responsible AI
 
 ## Goal
-Train a simple MNIST CNN and visualize learned filters and intermediate feature
-maps so that changes between early and deeper feature extraction are clear.
+Create a reproducible standalone program that demonstrates dataset imbalance,
+group-wise model evaluation, decision-tree explainability, and structured
+ethical analysis.
 
 ## Milestone 1 - Requirements
-- [x] Review the Experiment 05 requirements
-- [x] Identify the dataset, CNN operations, and required visualizations
-- [x] Confirm TensorFlow, NumPy, and Matplotlib cover the dependencies
+- [x] Review the Experiment 06 requirements
+- [x] Select appropriate datasets and models
+- [x] Confirm required dependencies and expected outputs
 
 ## Milestone 2 - Architecture
-- [x] Design leakage-free preprocessing and channel expansion
-- [x] Define two convolutional stages and the classifier
-- [x] Define intermediate activation extraction and visualization
-- [x] Define verification criteria for dimensions and probabilities
+- [x] Design the reproducible grouped synthetic dataset
+- [x] Define leakage-free training and group auditing
+- [x] Define the Iris Decision Tree explanation workflow
+- [x] Define visualizations and ethical case-study output
 
 ## Milestone 3 - Implementation
-- [x] Create `experiment_05_cnn_features.py`
-- [x] Load, split, normalize, and reshape MNIST
-- [x] Build, compile, train, and evaluate the CNN
-- [x] Predict a selected test image
-- [x] Extract intermediate feature maps
-- [x] Plot history, learned filters, and feature maps
+- [x] Create `Experiment_06_ethics.py`
+- [x] Implement representation analysis and visualization
+- [x] Implement group-wise held-out fairness evaluation
+- [x] Implement Iris feature importance and visualization
+- [x] Add responsible-AI and autonomous-system discussions
+- [x] Update dependency and usage documentation
 
 ## Milestone 4 - Verification
 - [x] Check Python syntax and imports
-- [x] Verify data isolation and model input/output dimensions
-- [x] Verify expected intermediate activation dimensions
-- [x] Verify prediction probabilities
-- [x] Run the complete program
-- [x] Record measured metrics and observed outputs
+- [x] Verify representation percentages sum to 100%
+- [x] Verify the group attribute is excluded from model inputs
+- [x] Verify train/test isolation and group metrics
+- [x] Verify feature importances are valid
+- [x] Run the complete program and record observed results
 
 ## Milestone 5 - Review and Handoff
-- [x] Review algorithm, visualization logic, and requirement compliance
+- [x] Review correctness and requirement coverage
 - [x] Fix confirmed issues
 - [x] Update `docs/PROGRESS.md`
-- [x] Report local and Colab verification status
+- [x] Report local verification status
 - [ ] Run directly in Google Colab
 
 ## Rules
 Complete milestones sequentially. Check boxes only after completing the work.
-Record failures and unverified behavior instead of assuming success.
+Treat fairness metrics as diagnostic evidence, not automatic proof of fairness
+or discrimination. Record failures and unverified behavior honestly.

@@ -1,54 +1,62 @@
-# Experiment 05: CNN Feature Extraction and Visualization
+# Experiment 06: Ethics and Responsible AI
 
 ## Aim
-Build and train a simple Convolutional Neural Network (CNN) on MNIST, then
-visualize its learned filters and intermediate feature maps to understand how
-image features change across convolutional layers.
+Study Responsible AI principles and practically examine dataset representation,
+group fairness, explainability, ethical risks, and autonomous-system safety.
 
-## Learning objectives
-- Build and train a basic TensorFlow/Keras CNN.
-- Extract intermediate activations from selected layers.
-- Visualize learned convolutional filters and feature maps.
-- Compare features produced by early and deeper convolutional layers.
-- Observe how padding, convolution stride, and pooling affect spatial size.
+## Objectives
+- Identify representation imbalance in a dataset.
+- Evaluate a classifier separately for different groups.
+- Explain why a group metric difference requires investigation rather than an
+  automatic conclusion of unfairness.
+- Train an explainable classifier on the Iris dataset.
+- Visualize decision-tree feature importance.
+- Review ethical issues in an AI case study and autonomous systems.
 
-## Dataset
-MNIST contains 60,000 training and 10,000 test grayscale digit images. Each
-image has shape 28 x 28. Images must be normalized to `[0, 1]` and expanded to
-shape `(28, 28, 1)` for convolution.
-
-## Required CNN
-- Input shape: `(28, 28, 1)`
-- First convolution: 8 filters, 3 x 3, ReLU, stride 1, same padding
-- Max pooling: 2 x 2
-- Second convolution: 16 filters, 3 x 3, ReLU, stride 2, valid padding
-- Flatten and fully connected classification layers
-- Output: 10 Softmax probabilities
-- Optimizer: Adam
-- Loss: sparse categorical cross-entropy
-- Metric: accuracy
+## Required libraries and data
+- Python 3
+- NumPy, Pandas, Matplotlib, and Scikit-learn
+- A reproducible synthetic grouped classification dataset for Parts A and B
+- The Iris dataset bundled with Scikit-learn for Part C
 
 ## Required procedure
-1. Load and normalize MNIST.
-2. Create training and validation partitions without using test data.
-3. Add a channel dimension to every image.
-4. Build, compile, and train the CNN.
-5. Evaluate it once on the untouched test set.
-6. Predict a selected test image.
-7. Extract outputs from the first convolution, pooling, and second
-   convolution layers.
-8. Visualize first- and second-layer learned filters.
-9. Visualize and compare intermediate feature maps.
-10. Print layer dimensions that demonstrate padding, pooling, and stride.
+### Part A - Bias identification
+1. Create a dataset containing two groups with intentionally unequal sample
+   counts.
+2. Count the samples and calculate percentage representation for each group.
+3. Identify the least-represented group.
+4. Plot group sample counts.
+
+### Part B - Fairness evaluation
+1. Split the grouped data into isolated training and test partitions.
+2. Keep the group column for auditing, but do not use it as a model feature.
+3. Train a classification model using the training data only.
+4. Calculate test accuracy separately for each group.
+5. Plot group accuracies and report the absolute accuracy gap.
+6. State that the gap is a screening signal that needs contextual analysis.
+
+### Part C - Explainable AI
+1. Load the Iris dataset.
+2. Train a Decision Tree classifier using a stratified train/test split.
+3. Report its held-out test accuracy.
+4. Extract and plot the model's feature importances.
+
+### Part D - Responsible AI case study
+Print a structured AI recruitment case study covering bias, fairness, privacy,
+safety, explainability, accountability, and human involvement.
+
+### Part E - Autonomous systems
+Print a structured review of safety, reliability, accountability, privacy,
+security, and meaningful human control.
 
 ## Required deliverable
-- `experiment_05_cnn_features.py`
-- Printed data shapes, model summary, test metrics, selected prediction, and
-  intermediate activation shapes
-- Training accuracy/loss graphs
-- Learned-filter visualizations
-- Feature-map visualizations from multiple stages
+- `Experiment_06_ethics.py`
+- Printed group counts and percentages
+- Group-representation bar chart
+- Group-wise held-out accuracy and accuracy-gap chart
+- Iris Decision Tree test accuracy and feature-importance chart
+- Responsible-AI and autonomous-systems discussion
 
-The program must remain a standalone Python file suitable for local execution
-or one Google Colab cell. Numerical results must not be claimed until the full
+The program must be a standalone Python file that can run locally or be pasted
+into one Google Colab cell. Measured results must not be reported until the
 program is executed.
