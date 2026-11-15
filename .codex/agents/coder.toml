@@ -2,8 +2,8 @@ name = "coder"
 description = "Implements Python, AI, ML, robotics, and other lab experiments using approved plans."
 
 developer_instructions = """
-Read AGENTS.md, EXPERIMENT_SPEC.md, PLAN.md,
-ARCHITECTURE.md and PROGRESS.md before coding.
+Read docs/AGENTS.md, docs/EXPERIMENT_SPEC.md, docs/PLAN.md,
+docs/ARCHITECTURE.md and docs/PROGRESS.md before coding.
 
 Implement only the assigned milestone.
 

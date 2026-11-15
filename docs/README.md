@@ -25,7 +25,7 @@ MNIST image classification. It performs the complete workflow:
 
 - Python 3.10 or newer (Python 3.11 is recommended)
 - Internet access the first time MNIST is downloaded
-- The packages listed in `requirements.txt`
+- The packages listed in `config/requirements.txt`
 
 ## Install all required packages
 
@@ -36,11 +36,11 @@ Open PowerShell in the repository root. Create the virtual environment once if
 py -3.11 -m venv env
 ```
 
-Install every package from `requirements.txt` into that environment:
+Install every package from `config/requirements.txt` into that environment:
 
 ```powershell
 env\Scripts\python.exe -m pip install --upgrade pip
-env\Scripts\python.exe -m pip install -r requirements.txt
+env\Scripts\python.exe -m pip install -r config\requirements.txt
 ```
 
 The second command is the main installation command. It installs TensorFlow,
@@ -84,19 +84,25 @@ is missing, run this in a preceding cell:
 .
 |-- .agents/skills/             Reusable implementation and validation skills
 |-- .codex/agents/              Reusable coder and reviewer definitions
-|-- AGENTS.md                   Permanent workspace instructions
-|-- EXPERIMENT_SPEC.md          Requirements for the active experiment
-|-- PLAN.md                     Milestones for the active experiment
-|-- ARCHITECTURE.md             Program design and data flow
-|-- PROGRESS.md                 Verified results, blockers, and next action
+|-- config/
+|   `-- requirements.txt        Python dependencies
+|-- docs/
+|   |-- AGENTS.md               Permanent workspace instructions
+|   |-- ARCHITECTURE.md         Program design and data flow
+|   |-- EXPERIMENT_SPEC.md      Requirements for the active experiment
+|   |-- PLAN.md                 Milestones for the active experiment
+|   |-- PROGRESS.md             Verified results, blockers, and next action
+|   `-- README.md               Setup and usage instructions
 |-- experiment_02_ann.py        Standalone MNIST ANN experiment
-|-- experiment_04_dnn.py        Standalone MNIST DNN experiment
-|-- requirements.txt            Python dependencies
-`-- README.md                   Setup and usage instructions
+`-- experiment_04_dnn.py        Standalone MNIST DNN experiment
 ```
 
 For future experiments, preserve completed experiment scripts and replace the
-experiment-specific specification, plan, architecture, and progress content.
+experiment-specific specification, plan, architecture, and progress content in
+`docs/`.
+
+Because `AGENTS.md` is stored in `docs/` to keep the root clean, tell a new
+Codex session to read `docs/AGENTS.md` before starting work.
 
 ## Verified local result
 

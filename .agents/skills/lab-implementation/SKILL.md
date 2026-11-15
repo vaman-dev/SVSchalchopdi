@@ -5,8 +5,8 @@ description: Use for implementing standalone educational programming, AI, ML, ro
 
 # Lab Implementation Skill
 
-1. Read the current experiment specification.
-2. Inspect PLAN.md and ARCHITECTURE.md.
+1. Read `docs/EXPERIMENT_SPEC.md`.
+2. Inspect `docs/PLAN.md` and `docs/ARCHITECTURE.md`.
 3. Identify required libraries and inputs.
 4. Implement the smallest correct solution.
 5. Prefer one self-contained Python file.

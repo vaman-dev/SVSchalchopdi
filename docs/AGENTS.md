@@ -8,21 +8,24 @@ Each experiment must be simple, independently runnable,
 educational, and easy to explain.
 
 ## Mandatory workflow
-1. Read EXPERIMENT_SPEC.md, PLAN.md, ARCHITECTURE.md,
-   and PROGRESS.md before implementing anything.
+1. Read `docs/EXPERIMENT_SPEC.md`, `docs/PLAN.md`,
+   `docs/ARCHITECTURE.md`, and `docs/PROGRESS.md` before implementing anything.
 2. For a new experiment, first analyze its requirements.
-3. Create or update PLAN.md with ordered milestones.
-4. Create or update ARCHITECTURE.md with the design.
+3. Create or update `docs/PLAN.md` with ordered milestones.
+4. Create or update `docs/ARCHITECTURE.md` with the design.
 5. Implement one milestone at a time.
 6. Use specialist subagents only when useful.
 7. Apply reusable skills when they match the task.
 8. Verify the actual code and record results.
-9. Update PROGRESS.md before compacting context.
+9. Update `docs/PROGRESS.md` before compacting context.
 
 ## Code structure
 - Prefer one standalone Python file per experiment.
 - Naming: experiment_02_ann.py, experiment_03_name.py.
 - Keep runnable experiment files in the project root.
+- Keep all user-facing Markdown documents in `docs/`.
+- Keep the dependency manifest at `config/requirements.txt`.
+- Keep visible root-level files limited to standalone `.py` experiments.
 - Do not create src/, packages, notebooks/, or
   unnecessary abstractions for simple experiments.
 - Code must work locally and by pasting into Colab.
@@ -66,12 +69,12 @@ Before implementation, document:
 - Clearly identify anything that remains unverified.
 
 ## Persistent context
-PLAN.md: current milestones and task status.
-ARCHITECTURE.md: technical design.
-PROGRESS.md: verified outcomes and next action.
-EXPERIMENT_SPEC.md: current experiment requirements.
+`docs/PLAN.md`: current milestones and task status.
+`docs/ARCHITECTURE.md`: technical design.
+`docs/PROGRESS.md`: verified outcomes and next action.
+`docs/EXPERIMENT_SPEC.md`: current experiment requirements.
 
-Before /compact, update PROGRESS.md with:
+Before /compact, update `docs/PROGRESS.md` with:
 - Completed milestones
 - Changed files
 - Commands actually executed

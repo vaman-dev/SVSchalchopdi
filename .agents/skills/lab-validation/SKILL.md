@@ -5,7 +5,7 @@ description: Use when testing, verifying, or reviewing Python experiments and th
 
 # Lab Validation Skill
 
-1. Read experiment requirements.
+1. Read `docs/EXPERIMENT_SPEC.md`.
 2. Inspect the implementation.
 3. Check imports and syntax.
 4. Validate important inputs and outputs.

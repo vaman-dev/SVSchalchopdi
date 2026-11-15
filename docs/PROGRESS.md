@@ -20,14 +20,19 @@ read-only reviews are complete. Direct Google Colab execution remains pending.
 - Completed independent code and validation reviews; neither found a confirmed
   code defect.
 - Preserved `experiment_02_ann.py` unchanged from `HEAD`.
+- Reorganized the workspace so root-level Markdown lives in `docs/`, the
+  dependency manifest lives in `config/`, and visible root files are Python
+  experiment programs.
 
 ## Files Implemented
 - `experiment_04_dnn.py` (new standalone program)
-- `EXPERIMENT_SPEC.md` (active Experiment 04 requirements)
-- `PLAN.md` (Experiment 04 milestones and status)
-- `ARCHITECTURE.md` (Experiment 04 design)
-- `PROGRESS.md` (actual execution record)
-- `README.md` (Experiment 04 setup and run information)
+- `docs/EXPERIMENT_SPEC.md` (active Experiment 04 requirements)
+- `docs/PLAN.md` (Experiment 04 milestones and status)
+- `docs/ARCHITECTURE.md` (Experiment 04 design)
+- `docs/PROGRESS.md` (actual execution record)
+- `docs/README.md` (Experiment 04 setup and run information)
+- `docs/AGENTS.md` (reusable workspace instructions)
+- `config/requirements.txt` (Python dependency manifest)
 
 ## Tests Performed
 - Inspected `git diff`, `git status`, and commit `34eb569` before starting.
@@ -56,6 +61,18 @@ read-only reviews are complete. Direct Google Colab execution remains pending.
   - Headless plotting check passed with the expected non-interactive warning.
   - `git diff --check` found no whitespace errors.
   - Both reviewers confirmed no diff for `experiment_02_ann.py`.
+- Workspace layout validation:
+  - Confirmed zero root-level Markdown files.
+  - Confirmed the only visible root-level working files are
+    `experiment_02_ann.py` and `experiment_04_dnn.py`; `.gitignore` remains as
+    required repository metadata.
+  - AST syntax checks passed for both experiment scripts without generating a
+    new root `__pycache__/`.
+  - `env\Scripts\python.exe -m pip check` reported no broken requirements.
+  - `pip install --dry-run --no-index -r config\requirements.txt` confirmed all
+    declared packages are already satisfied in `env/`.
+  - Internal agent, skill, dependency, and document references were updated to
+    their new paths.
 
 ## Results
 - Environment: Python 3.10.11, TensorFlow 2.21.0, NumPy 2.2.6,
@@ -87,15 +104,18 @@ None found by either independent reviewer.
 - Native Windows TensorFlow 2.21 uses CPU; its GPU warning is informational.
 - Automated visualization used Matplotlib's non-interactive `Agg` backend, so
   the figure code executed but no GUI window opened during validation.
+- `docs/AGENTS.md` is no longer automatically discovered as a root instruction
+  file; new Codex sessions must be told to read it explicitly.
 
 ## Errors / Blockers
 No local execution blocker and no confirmed implementation bug remain. Google
 Colab execution is the only unverified acceptance item.
 
 ## Next Action
-Paste `experiment_04_dnn.py` into one Google Colab cell and run it. If it
-completes, check the remaining Colab item in `PLAN.md`, record the result here,
-then commit Experiment 04 before replacing these documents for a new experiment.
+Review and commit the directory reorganization. Then paste
+`experiment_04_dnn.py` into one Google Colab cell and run it. If it completes,
+check the remaining Colab item in `docs/PLAN.md` and record the result here
+before replacing these documents for a new experiment.
 
 ## Handoff Rules
 Before context compaction, replace this status with actual:

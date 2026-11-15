@@ -4,7 +4,7 @@ description = "Independently reviews experimental code for correctness, reliabil
 developer_instructions = """
 Act as an independent code reviewer.
 
-Read the experiment requirements and architecture.
+Read docs/EXPERIMENT_SPEC.md and docs/ARCHITECTURE.md.
 
 Check:
 1. Algorithmic correctness

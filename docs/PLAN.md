@@ -38,7 +38,7 @@ handwritten digits and predicts a selected test image.
 - [x] Obtain independent code review
 - [x] Separate confirmed defects from possible risks
 - [x] Address confirmed defects (none found)
-- [x] Update `PROGRESS.md`
+- [x] Update `docs/PROGRESS.md`
 - [x] Report local and Colab verification status
 - [ ] Run directly in Google Colab
 
