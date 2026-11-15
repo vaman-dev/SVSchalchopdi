@@ -1,94 +1,76 @@
 # ARCHITECTURE.md
 
 ## Experiment
-Experiment 06 - Ethics and Responsible AI
+Experiment 03 - Performance Analysis of Activation Functions
 
 ## Approach
-A standalone educational script combines two small machine-learning exercises
-with written ethical analysis. A reproducible synthetic dataset demonstrates
-group representation and performance auditing. Scikit-learn's bundled Iris
-dataset demonstrates interpretable feature importance with a Decision Tree.
+A standalone NumPy and Matplotlib program applies four activation functions to
+the same sample values, validates their defining properties, visualizes their
+behavior, and records an illustrative vectorized timing comparison.
 
-## Data flow
+## Program flow
 ```text
-Seeded synthetic grouped data
+Sample values [-5, -2, -1, 0, 1, 2, 5]
     |
-    +--> group counts and percentages --> representation bar chart
-    |
-    `--> stratified train/test split
+    +--> ReLU ---------> element-wise outputs in [0, infinity)
+    +--> Sigmoid ------> element-wise outputs in (0, 1)
+    +--> Tanh ---------> element-wise outputs in (-1, 1)
+    `--> Softmax ------> one probability distribution with sum 1
              |
              v
-       numeric features only (group excluded)
-             |
-             v
-       Logistic Regression
-             |
-             v
-       held-out predictions by group
-             |
-             `--> group accuracy + absolute gap + comparison chart
+    printed comparison and mathematical assertions
 
-Scikit-learn Iris dataset
+Dense values from -6 to 6
     |
-    v
-Stratified train/test split
-    |
-    v
-Decision Tree classifier
-    |
-    +--> held-out accuracy
-    `--> normalized feature importances --> bar chart
+    `--> ReLU, Sigmoid, and Tanh curve plots
 
-Printed analysis
-    +--> AI recruitment case study
-    `--> autonomous-system safety and governance checklist
+Sample values
+    `--> Softmax class-probability bar chart
+
+Large deterministic NumPy input
+    |
+    `--> repeated timing --> milliseconds per call --> timing bar chart
+
+Static comparison records
+    `--> output range, common use, advantages, and limitations
 ```
 
-## Synthetic dataset design
-- Two audit groups have intentionally unequal sample counts.
-- Two numerical predictive features and one binary target are generated with a
-  fixed random seed.
-- Different noise levels allow group performance to be compared without using
-  the group identity as a predictor.
-- A composite group-and-label key is used for stratification so each test group
-  retains both target classes.
+## Numerical design
+- ReLU uses `numpy.maximum`.
+- Sigmoid uses separate positive and negative branches to avoid overflow.
+- Tanh uses `numpy.tanh`.
+- Softmax subtracts the maximum value along the selected axis, exponentiates,
+  and divides by the sum along that axis.
+- Softmax supports both one-dimensional vectors and two-dimensional batches.
 
-The synthetic example is an educational demonstration, not evidence about any
-real population or production system.
-
-## Model configuration
-### Fairness demonstration
-- Model: Logistic Regression
-- Inputs: two numerical features
-- Audit attribute: group, excluded from model inputs
-- Evaluation: held-out accuracy per group and absolute accuracy gap
-- Random seed: 42
-
-### Explainability demonstration
-- Dataset: Iris
-- Model: Decision Tree, maximum depth 3
-- Explanation: normalized impurity-based feature importance
-- Evaluation: held-out accuracy
-- Random seed: 42
+## Timing design
+- Generate a deterministic 100,000-value array once outside the timed calls.
+- Run each function repeatedly using `timeit.repeat`.
+- Report the best average milliseconds per call across several repeats to
+  reduce incidental system noise.
+- Use the same numeric array for every function.
+- Explicitly state that Softmax has additional reduction/normalization work, so
+  the chart is an implementation case study rather than an equal-complexity
+  scientific ranking.
 
 ## Program organization
-`Experiment_06_ethics.py` contains small functions for dataset creation,
-representation analysis, fairness evaluation, Iris feature importance,
-visualization, case-study printing, and the main execution flow. It has no
-local data-file or module dependencies.
+`experiment_03_activation_functions.py` contains small functions for the four
+activations, property validation, output printing, visualization, timing,
+comparison reporting, and the main execution flow. It has no external dataset,
+local module, or file dependency.
 
 ## Verification strategy
-- Compile and import the source using the existing virtual environment.
-- Assert expected columns, group counts, and percentage totals.
-- Assert that the group attribute is not included in model features.
-- Assert train/test row isolation and valid group accuracies.
-- Assert Iris feature importances are nonnegative and sum to one.
-- Execute the complete script with Matplotlib's non-interactive backend.
-- Inspect the implementation against all five practical-work sections.
+- Compile and import the source using the retained virtual environment.
+- Test representative values and arrays containing `-1000` and `1000`.
+- Assert finite outputs and mathematical ranges.
+- Assert Sigmoid(0) is 0.5, Tanh(0) is 0, and ReLU removes negative values.
+- Assert one-dimensional and batched Softmax results each sum to one.
+- Execute the complete program with Matplotlib's non-interactive backend.
+- Review timing labels and explanatory text for misleading comparisons.
 
-## Constraints and interpretation
-- Preserve every earlier experiment script.
-- Avoid sensitive real-person data; use clearly labelled synthetic groups.
-- Do not describe one metric as a complete fairness assessment.
-- Impurity-based feature importance describes model behavior, not causation.
-- Keep the program suitable for a single Google Colab cell.
+## Constraints
+- Preserve Experiments 02, 04, 05, and 06.
+- Do not train a neural network because the specified procedure compares the
+  mathematical activation transformations directly.
+- Do not claim timing portability across environments.
+- Keep the file suitable for one Google Colab cell.

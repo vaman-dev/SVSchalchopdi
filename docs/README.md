@@ -5,21 +5,21 @@ artificial intelligence, machine learning, robotics, and automation.
 
 Each experiment is kept in a single Python file at the project root so it can
 be run locally or pasted into Google Colab. The repository currently preserves
-Experiments 02, 04, and 05 and uses Experiment 06 as the active experiment.
+Experiments 02, 04, 05, and 06 and uses Experiment 03 as the active experiment.
 
 ## Current experiment
 
-`Experiment_06_ethics.py` demonstrates Ethics and Responsible AI. It performs
-the complete workflow:
+`experiment_03_activation_functions.py` compares ReLU, Sigmoid, Tanh, and
+Softmax. It performs the complete workflow:
 
-- creates an intentionally imbalanced synthetic grouped dataset;
-- calculates and visualizes group representation;
-- excludes the audit group from model features;
-- trains a Logistic Regression model on an isolated training partition;
-- compares held-out accuracy across groups without overclaiming fairness;
-- trains a Decision Tree on the built-in Iris dataset;
-- visualizes model feature importance; and
-- prints AI recruitment and autonomous-system ethical analyses.
+- implements all four activation functions with NumPy;
+- uses numerically stable Sigmoid and Softmax calculations;
+- applies each function to the same sample values;
+- verifies output ranges, special values, and Softmax probability sums;
+- tests extreme inputs and batched Softmax calculations;
+- displays activation curves and sample class probabilities;
+- measures and plots illustrative NumPy execution time; and
+- prints suitable applications, advantages, and limitations.
 
 ## Requirements
 
@@ -60,27 +60,28 @@ py -m venv env
 
 ```powershell
 env\Scripts\python.exe experiment_02_ann.py
+env\Scripts\python.exe experiment_03_activation_functions.py
 env\Scripts\python.exe experiment_04_dnn.py
 env\Scripts\python.exe experiment_05_cnn_features.py
 env\Scripts\python.exe Experiment_06_ethics.py
 ```
 
 The first MNIST run may take longer while TensorFlow downloads its dataset.
-Experiment 06 uses generated data and the Iris dataset bundled with
-Scikit-learn, so it does not download a dataset. It prints representation,
-group-performance, feature-importance, case-study, and autonomous-system
-results and opens three bar charts.
+Experiment 03 requires no dataset download. It prints the transformed values,
+Softmax sum, measured timing, applications, and limitations, and opens the
+activation-behavior and timing figures.
 
 ## Run in Google Colab
 
 1. Open a new Google Colab notebook.
-2. Paste the contents of `Experiment_06_ethics.py` into one code cell.
+2. Paste the contents of `experiment_03_activation_functions.py` into one code
+   cell.
 3. Run the cell.
 
-If an Experiment 06 import is missing, run this in a preceding cell:
+If an Experiment 03 import is missing, run this in a preceding cell:
 
 ```python
-%pip install numpy pandas matplotlib scikit-learn
+%pip install numpy matplotlib
 ```
 
 ## Project structure
@@ -99,6 +100,7 @@ If an Experiment 06 import is missing, run this in a preceding cell:
 |   |-- PROGRESS.md             Verified results, blockers, and next action
 |   `-- README.md               Setup and usage instructions
 |-- experiment_02_ann.py        Standalone MNIST ANN experiment
+|-- experiment_03_activation_functions.py  Activation comparison experiment
 |-- experiment_04_dnn.py        Standalone MNIST DNN experiment
 |-- experiment_05_cnn_features.py  Standalone CNN feature experiment
 `-- Experiment_06_ethics.py     Standalone Responsible AI experiment
@@ -113,10 +115,10 @@ Codex session to read `docs/AGENTS.md` before starting work.
 
 ## Verified local result
 
-Experiment 06 completed locally on Windows using Pandas 2.3.3 and Scikit-learn
-1.7.2. The synthetic dataset contained 400 Group A and 100 Group B samples.
-Held-out accuracies were `0.8800` and `0.7600`, producing an absolute gap of
-`0.1200`. The Iris Decision Tree accuracy was `0.8947`. These seeded educational
-results can vary if the data generation, split, model, or library versions are
-changed. All three plotting paths executed in headless validation; direct
-Google Colab execution remains unverified.
+Experiment 03 completed locally on Windows using NumPy 2.2.6 and Matplotlib
+3.10.9. ReLU, Sigmoid, Tanh, one-dimensional Softmax, batched Softmax, and
+extreme-input checks passed. For 100,000 values, the observed best average
+times per call were ReLU `0.0593 ms`, Sigmoid `5.3819 ms`, Tanh `0.8095 ms`,
+and Softmax `1.5645 ms`. Timing varies with the environment, and Softmax does
+additional vector normalization work. Both plotting paths executed in
+headless validation; direct Google Colab execution remains unverified.

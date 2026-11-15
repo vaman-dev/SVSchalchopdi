@@ -1,111 +1,109 @@
 # PROGRESS.md
 
 ## Current Experiment
-Experiment 06 - Ethics and Responsible AI
+Experiment 03 - Performance Analysis of Activation Functions
 
 ## Current Status
-Standalone implementation, dependency setup, local execution, plotting-path
-validation, and code review are complete. Direct Google Colab execution remains
-pending.
+Standalone implementation, local execution, numerical edge-case testing,
+plotting-path validation, and code review are complete. Commit/push and direct
+Google Colab execution remain pending.
 
 ## Completed Work
-- Reviewed the supplied aim, objectives, theory, practical work, and expected
-  output.
-- Created `Experiment_06_ethics.py` without modifying Experiments 02, 04, or 05.
-- Created a seeded 500-row synthetic dataset with 400 Group A and 100 Group B
-  samples and clearly labelled it as an educational example.
-- Calculated group counts and percentages, identified the underrepresented
-  group, and plotted sample counts.
-- Split the synthetic data into isolated training and test partitions using a
-  group-and-label stratification key.
-- Excluded the audit group and target from model inputs, trained a scaled
-  Logistic Regression model, and compared held-out accuracy by group.
-- Loaded the bundled Iris dataset, trained a depth-3 Decision Tree, and plotted
-  normalized impurity-based feature importance.
-- Added an AI recruitment case study covering bias, fairness, privacy, safety,
-  explainability, accountability, and human involvement.
-- Added autonomous-system considerations covering safety, reliability,
-  accountability, privacy, security, and human control.
-- Added Pandas and Scikit-learn to the dependency manifest and updated the
-  README installation, execution, Colab, and project-structure guidance.
+- Reviewed the supplied aim, objectives, theory, comparative analysis,
+  procedure, expected output, result, and conclusion.
+- Created `experiment_03_activation_functions.py` without modifying any prior
+  experiment script.
+- Implemented ReLU with `numpy.maximum`.
+- Implemented Sigmoid with `logaddexp` to avoid exponential overflow.
+- Implemented Tanh with `numpy.tanh`.
+- Implemented stable Softmax using maximum subtraction and axis-aware
+  normalization for vectors and batches.
+- Printed a common-input comparison and verified the Softmax sum.
+- Added four behavior visualizations: three scalar curves and a sample Softmax
+  class-probability chart.
+- Added repeatable NumPy timing for the same 100,000-value array and a timing
+  chart with explicit interpretation limits.
+- Printed output ranges, suitable applications, advantages, and limitations.
+- Updated the active specification, plan, architecture, and README.
 
 ## Files Implemented
-- `Experiment_06_ethics.py` (new standalone program)
-- `config/requirements.txt` (Pandas and Scikit-learn dependencies)
-- `docs/EXPERIMENT_SPEC.md` (Experiment 06 requirements)
-- `docs/PLAN.md` (completed local milestones and pending Colab check)
-- `docs/ARCHITECTURE.md` (data flow, models, safeguards, and validation design)
+- `experiment_03_activation_functions.py` (new standalone program)
+- `docs/EXPERIMENT_SPEC.md` (Experiment 03 requirements)
+- `docs/PLAN.md` (completed local milestones and remaining handoff tasks)
+- `docs/ARCHITECTURE.md` (numerical and timing design)
 - `docs/PROGRESS.md` (verified execution record)
-- `docs/README.md` (Experiment 06 setup and usage instructions)
+- `docs/README.md` (Experiment 03 setup and usage instructions)
+
+The existing dependency manifest already contained NumPy and Matplotlib, so no
+new package was added.
 
 ## Tests Performed
-- `env\Scripts\python.exe -m pip install -r config\requirements.txt`
-  - Installed Pandas 2.3.3 and Scikit-learn 1.7.2 into the retained `env/`.
-  - Existing TensorFlow, NumPy, and Matplotlib installations were retained.
-- Imported Pandas and Scikit-learn and printed their module locations.
-  - Both resolved inside `env\Lib\site-packages`, not global Python.
-- `env\Scripts\python.exe -m py_compile Experiment_06_ethics.py`
-  - Passed with exit code 0.
+- `env\Scripts\python.exe -m py_compile experiment_03_activation_functions.py`
+  - Passed with exit code 0 after the validation correction.
 - `env\Scripts\python.exe -m pip check`
   - Reported no broken requirements.
-- `git diff --exit-code -- experiment_02_ann.py experiment_04_dnn.py experiment_05_cnn_features.py`
-  - Passed; all earlier experiment scripts remain unchanged.
+- `git diff --exit-code -- experiment_02_ann.py experiment_04_dnn.py experiment_05_cnn_features.py Experiment_06_ethics.py`
+  - Passed; every earlier experiment script remains unchanged.
+- Imported the module and tested inputs `[-1000, -1, 0, 1, 1000]`.
+  - Sigmoid, Tanh, and Softmax outputs were finite.
+  - ReLU removed all negative values.
+  - One-dimensional Softmax summed to 1.
+  - Both rows of a two-dimensional, axis-aware Softmax summed to 1.
 - Ran the complete program with `MPLBACKEND=Agg`.
-  - Representation, split isolation, model-feature exclusion, group metrics,
-    feature importance, and probability/range assertions passed.
-  - All three plot code paths and Parts A through E completed with exit code 0.
-- Reviewed the code against the supplied practical procedure.
-  - No confirmed implementation bug remains.
+  - Output comparison, mathematical assertions, two plotting paths, timing,
+    and application/limitation reporting completed with exit code 0.
 
 ## Results
-- Environment: Python 3.10.11 on Windows
-- Pandas: 2.3.3
-- Scikit-learn: 1.7.2
-- Synthetic dataset shape: `(500, 5)`
-- Group A: 400 samples, 80.00% representation
-- Group B: 100 samples, 20.00% representation
-- Underrepresented group: Group B
-- Training rows: 375
-- Held-out test rows: 125
-- Group A held-out accuracy: 0.8800 (`n=100`)
-- Group B held-out accuracy: 0.7600 (`n=25`)
-- Absolute group accuracy gap: 0.1200
-- Iris Decision Tree held-out accuracy: 0.8947
-- Iris feature importance:
-  - Petal length: 0.9507
-  - Petal width: 0.0493
-  - Sepal width: 0.0000
-  - Sepal length: 0.0000
+### Common input values
+Input: `[-5, -2, -1, 0, 1, 2, 5]`
 
-These are seeded educational results, not a conclusion about a real group or
-production system. A different dataset, split, model, or library version can
-change the measurements.
+- ReLU: `[0, 0, 0, 0, 1, 2, 5]`
+- Sigmoid: `[0.006693, 0.119203, 0.268941, 0.500000, 0.731059,
+  0.880797, 0.993307]`
+- Tanh: `[-0.999909, -0.964028, -0.761594, 0, 0.761594, 0.964028,
+  0.999909]`
+- Softmax: `[0.000042, 0.000846, 0.002299, 0.006249, 0.016986,
+  0.046173, 0.927406]`
+- Softmax probability sum: `1.000000`
+
+### Observed NumPy timing
+Environment: Python 3.10.11, NumPy 2.2.6, Matplotlib 3.10.9 on Windows.
+Best average time per call on a 100,000-value array:
+
+- ReLU: `0.0593 ms`
+- Sigmoid: `5.3819 ms`
+- Tanh: `0.8095 ms`
+- Softmax: `1.5645 ms`
+
+These values are measurements from one local run and will vary with hardware,
+operating-system load, Python/NumPy versions, array size, and timing method.
+Softmax additionally performs reductions and vector normalization, so its
+timing is not directly equivalent to the element-wise functions.
 
 ## Review Report
-### Confirmed bugs
-None found.
+### Confirmed issue found and fixed
+The first extreme-input check reused a strict assertion that every Sigmoid
+result must be greater than zero and less than one. Floating-point arithmetic
+correctly rounds Sigmoid(-1000) to 0 and Sigmoid(1000) to 1. The validation was
+corrected to accept the closed floating-point range `[0, 1]` while retaining
+finite-output and Sigmoid(0) checks. The edge-case retest then passed.
 
-### Interpretation limits / possible risks
-- Representation imbalance and a group accuracy gap are screening signals, not
-  automatic proof of discrimination or fairness.
-- Accuracy alone does not capture false-positive/false-negative tradeoffs,
-  calibration, intersectional effects, or application-specific harm.
-- Group B has only 25 held-out samples, so its accuracy estimate is less stable.
-- The synthetic group labels do not represent real demographic groups.
-- Decision Tree impurity importance explains this fitted model's split usage;
-  it does not prove causal influence.
-- Headless validation executed plot code but did not visually inspect a GUI.
+### Remaining limitations
+- The timing case study measures NumPy implementations, not GPU kernels or
+  complete neural-network training performance.
+- Softmax operates across a vector while the other functions are element-wise.
+- Timing does not measure gradient behavior or model accuracy.
+- The non-interactive backend executed plot creation but did not visually
+  inspect a GUI window.
 - Direct Google Colab execution has not been performed.
 
 ## Errors / Blockers
-No local blocker remains. Direct Colab execution is the only unverified item.
-The Matplotlib warnings during validation only stated that the intentionally
-non-interactive `Agg` backend cannot open a window.
+No local blocker remains. The Matplotlib warnings only stated that the
+intentionally non-interactive `Agg` backend cannot open display windows.
 
 ## Next Action
-Review the local Experiment 06 changes. Then paste `Experiment_06_ethics.py`
-into one Google Colab cell and run it to confirm interactive chart rendering.
-Commit and push the experiment after approval.
+Commit and push the verified Experiment 03 changes to `origin/main`. Then run
+the script in one Google Colab cell to confirm interactive rendering.
 
 ## Handoff Rules
 Before context compaction, replace this status with actual:

@@ -1,48 +1,48 @@
 # PLAN.md
 
 ## Active Experiment
-Experiment 06 - Ethics and Responsible AI
+Experiment 03 - Performance Analysis of Activation Functions
 
 ## Goal
-Create a reproducible standalone program that demonstrates dataset imbalance,
-group-wise model evaluation, decision-tree explainability, and structured
-ethical analysis.
+Create a standalone case study that implements, verifies, visualizes, times,
+and explains ReLU, Sigmoid, Tanh, and Softmax.
 
 ## Milestone 1 - Requirements
-- [x] Review the Experiment 06 requirements
-- [x] Select appropriate datasets and models
-- [x] Confirm required dependencies and expected outputs
+- [x] Review the Experiment 03 requirements
+- [x] Identify required functions, outputs, and comparisons
+- [x] Confirm NumPy and Matplotlib cover the dependencies
 
 ## Milestone 2 - Architecture
-- [x] Design the reproducible grouped synthetic dataset
-- [x] Define leakage-free training and group auditing
-- [x] Define the Iris Decision Tree explanation workflow
-- [x] Define visualizations and ethical case-study output
+- [x] Define stable NumPy implementations
+- [x] Define mathematical property and extreme-input checks
+- [x] Define curve, probability, and timing visualizations
+- [x] Define fair interpretation limits for timing measurements
 
 ## Milestone 3 - Implementation
-- [x] Create `Experiment_06_ethics.py`
-- [x] Implement representation analysis and visualization
-- [x] Implement group-wise held-out fairness evaluation
-- [x] Implement Iris feature importance and visualization
-- [x] Add responsible-AI and autonomous-system discussions
-- [x] Update dependency and usage documentation
+- [x] Create `experiment_03_activation_functions.py`
+- [x] Implement ReLU, Sigmoid, Tanh, and Softmax
+- [x] Print and verify common-input transformations
+- [x] Plot activation curves and Softmax probabilities
+- [x] Benchmark and plot illustrative execution time
+- [x] Print characteristics, limitations, and applications
+- [x] Update README usage documentation
 
 ## Milestone 4 - Verification
 - [x] Check Python syntax and imports
-- [x] Verify representation percentages sum to 100%
-- [x] Verify the group attribute is excluded from model inputs
-- [x] Verify train/test isolation and group metrics
-- [x] Verify feature importances are valid
-- [x] Run the complete program and record observed results
+- [x] Test expected ranges and special values
+- [x] Test extreme-input numerical stability
+- [x] Verify each Softmax row sums to one
+- [x] Run the complete program and all plotting paths
+- [x] Record measured timing observations
 
 ## Milestone 5 - Review and Handoff
-- [x] Review correctness and requirement coverage
+- [x] Review correctness and requirement compliance
 - [x] Fix confirmed issues
 - [x] Update `docs/PROGRESS.md`
-- [x] Report local verification status
+- [ ] Commit and push the completed experiment
 - [ ] Run directly in Google Colab
 
 ## Rules
 Complete milestones sequentially. Check boxes only after completing the work.
-Treat fairness metrics as diagnostic evidence, not automatic proof of fairness
-or discrimination. Record failures and unverified behavior honestly.
+Report measured timing instead of guessing. State that timing varies by
+hardware, operating system, Python, and library versions.
